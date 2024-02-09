@@ -1,0 +1,63 @@
+"""
+File:    tactego.py
+Author:  Tushar Passi
+Date:    11/10/2023
+Section: 56
+E-mail:  mt40575@umbc.edu
+Description:
+  DESCRIPTION OF WHAT THE PROGRAM DOES
+
+"""
+import random 
+
+def tactego(pieces_file, length, width):
+   pieces = []
+   with open(pieces_file, 'r') as the_file:
+      for line in the_file:
+         pieces_split = line.split(" ")
+         if '\n' in pieces_split[1]:
+            pieces_split[1] = pieces_split[1].replace('\n', '')
+         pieces_split[1] = int(pieces_split[1])
+         for i in range(pieces_split[1]):
+            pieces.append(pieces_split[0])
+
+   random.shuffle(pieces)
+   # prints the top row of board
+   for i in range(width):
+      if i == 0:
+         print(end="       ")
+      print(str(i), end="    ")
+
+   print("")
+  # random.shuffle(pieces)
+  # print(pieces)
+   # prints the remaining rows
+  # """
+   initial = 0
+   row_counter = 0
+   for i in range(length):
+      print("    ", end=str(i))
+      print(" ", end="")
+      row_counter += 1
+      if initial > width:
+         initial=0
+      for j in range(initial, width+initial):
+         if row_counter < 3 and j < len(pieces):
+            print("R" + str(pieces[j]), end="    ")
+         elif row_counter > length-2 and j < len(pieces):
+           # random.shuffle(pieces)
+            print("B" + str(pieces[i]), end="    ")
+      initial += width
+      print("")
+   # """
+   print(pieces)
+
+
+if __name__ == '__main__':
+  # changes layout of board
+  random.seed(input('What is seed? '))
+  file_name = input('What is the filename for the pieces? ')
+  length = int(input('What is the length? '))
+  width = int(input('What is the width? '))
+  tactego(file_name, length, width)
+
